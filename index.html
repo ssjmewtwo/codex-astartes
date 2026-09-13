@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codex Astartes - Discipline & Fitness</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans p-4 max-w-4xl mx-auto">
+
+  <!-- HEADER: SMART RING STATUS -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-6 flex justify-between items-center text-xs">
+    <div class="flex items-center space-x-2 text-cyan-400 font-semibold uppercase tracking-wider">
+      <i data-lucide="activity"></i>
+      <span>Smart Ring Connected</span>
+    </div>
+    <div class="flex space-x-4">
+      <span>Sleep: <strong class="text-white">88%</strong></span>
+      <span>Readiness: <strong class="text-white font-bold text-emerald-400">92%</strong></span>
+    </div>
+  </div>
+
+  <!-- AVATAR HERO CARD -->
+  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 mb-8 shadow-xl">
+    <div class="flex flex-col md:flex-row items-center gap-6">
+      
+      <!-- Avatar Graphic -->
+      <div class="relative w-28 h-28 bg-indigo-900/50 border-2 border-indigo-400 rounded-2xl flex items-center justify-center shadow-indigo-500/20 shadow-lg">
+        <i data-lucide="shield" class="w-12 h-12 text-indigo-400"></i>
+        <div id="avatar-level" class="absolute -bottom-2 bg-indigo-600 text-white text-xs px-2.5 py-0.5 rounded-full font-bold">
+          Lvl 1
+        </div>
+      </div>
+
+      <!-- Avatar Stats -->
+      <div class="flex-1 w-full">
+        <div class="flex justify-between items-center mb-2">
+          <h2 class="text-2xl font-bold tracking-wide">ASTARTES AVATAR</h2>
+          <span class="text-xs text-indigo-300 bg-indigo-950 border border-indigo-800 px-3 py-1 rounded-full">
+            Rank: Discipline Initiate
+          </span>
+        </div>
+
+        <!-- XP Bar -->
+        <div class="mb-4">
+          <div class="flex justify-between text-xs text-slate-400 mb-1">
+            <span>XP Progress</span>
+            <span id="xp-text">0 / 100 XP</span>
+          </div>
+          <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden border border-slate-700">
+            <div id="xp-bar" class="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full w-0 transition-all duration-500"></div>
+          </div>
+        </div>
+
+        <!-- Avatar Equipment -->
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+            <p class="text-slate-500">Helm</p>
+            <p class="font-semibold text-slate-300">Novice Hood</p>
+          </div>
+          <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+            <p class="text-slate-500">Armor</p>
+            <p class="font-semibold text-slate-300">MK-X Power Armor</p>
+          </div>
+          <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+            <p class="text-slate-500">Aura</p>
+            <p class="font-semibold text-cyan-400">Ring Synergy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <!-- HEVY-STYLE WORKOUT LOGGER -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+      <div class="flex items-center space-x-2 mb-4">
+        <i data-lucide="dumbbell" class="text-indigo-400"></i>
+        <h3 class="text-lg font-bold">Log Workout Set</h3>
+      </div>
+
+      <form id="workout-form" class="space-y-3 mb-6">
+        <input type="text" id="exercise" placeholder="Exercise (e.g. Bench Press)" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm focus:outline-none focus:border-indigo-500" />
+        <div class="grid grid-cols-3 gap-2">
+          <input type="number" id="weight" placeholder="Weight (kg)" required class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500" />
+          <input type="number" id="sets" placeholder="Sets" required class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500" />
+          <input type="number" id="reps" placeholder="Reps" required class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500" />
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-semibold text-sm py-2.5 rounded-lg flex items-center justify-center space-x-2 transition">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Log Set & Earn XP</span>
+        </button>
+      </form>
+
+      <div class="space-y-2">
+        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Today's Sets</h4>
+        <div id="workout-list" class="space-y-2">
+          <p class="text-xs text-slate-600 italic">No sets logged yet today.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HABIT TRACKER -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+      <div class="flex items-center space-x-2 mb-4">
+        <i data-lucide="flame" class="text-cyan-400"></i>
+        <h3 class="text-lg font-bold">Daily Habits</h3>
+      </div>
+
+      <div id="habit-list" class="space-y-3">
+        <!-- Habits dynamically rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initial State
+    let level = 1;
+    let xp = 0;
+    let xpNeeded = 100;
+
+    let habits = [
+      { id: 1, name: 'Cold Shower', xp: 15, done: false },
+      { id: 2, name: 'Read 20 Pages', xp: 20, done: false },
+      { id: 3, name: '8+ Hours Sleep (Smart Ring)', xp: 30, done: true }
+    ];
+
+    // Functions
+    function addXP(amount) {
+      xp += amount;
+      if (xp >= xpNeeded) {
+        level++;
+        xp -= xpNeeded;
+        xpNeeded = level * 100;
+        alert(`🎉 LEVEL UP! You reached Level ${level}!`);
+      }
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('avatar-level').innerText = `Lvl ${level}`;
+      document.getElementById('xp-text').innerText = `${xp} / ${xpNeeded} XP`;
+      document.getElementById('xp-bar').style.width = `${(xp / xpNeeded) * 100}%`;
+      renderHabits();
+    }
+
+    function renderHabits() {
+      const container = document.getElementById('habit-list');
+      container.innerHTML = '';
+      habits.forEach(h => {
+        const item = document.createElement('div');
+        item.className = `p-3.5 rounded-xl border flex items-center justify-between cursor-pointer transition ${
+          h.done ? 'bg-slate-950/50 border-slate-800/50 opacity-60' : 'bg-slate-950 border-slate-800 hover:border-slate-700'
+        }`;
+        item.onclick = () => {
+          if (!h.done) {
+            h.done = true;
+            addXP(h.xp);
+          }
+        };
+        item.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <i data-lucide="${h.done ? 'check-circle' : 'circle'}" class="${h.done ? 'text-cyan-400' : 'text-slate-700'}"></i>
+            <span class="text-sm ${h.done ? 'line-through text-slate-500' : 'font-medium'}">${h.name}</span>
+          </div>
+          <span class="text-xs font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-900/50 px-2 py-1 rounded">+${h.xp} XP</span>
+        `;
+        container.appendChild(item);
+      });
+      lucide.createIcons();
+    }
+
+    // Workout Logger Event Listener
+    document.getElementById('workout-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const exercise = document.getElementById('exercise').value;
+      const weight = document.getElementById('weight').value;
+      const sets = document.getElementById('sets').value;
+      const reps = document.getElementById('reps').value;
+
+      const xpGained = sets * 10;
+      addXP(xpGained);
+
+      const workoutList = document.getElementById('workout-list');
+      if (workoutList.querySelector('p')) workoutList.innerHTML = '';
+
+      const logItem = document.createElement('div');
+      logItem.className = 'bg-slate-950 border border-slate-800/80 p-3 rounded-lg flex justify-between items-center text-sm';
+      logItem.innerHTML = `
+        <div>
+          <p class="font-semibold text-slate-200">${exercise}</p>
+          <p class="text-xs text-slate-500">${sets} sets × ${reps} reps @ ${weight} kg</p>
+        </div>
+        <span class="text-xs font-bold text-indigo-400 bg-indigo-950 border border-indigo-900 px-2 py-1 rounded">+${xpGained} XP</span>
+      `;
+      workoutList.prepend(logItem);
+
+      document.getElementById('workout-form').reset();
+    });
+
+    // Initialize Icons and UI
+    lucide.createIcons();
+    updateUI();
+  </script>
+</body>
+</html>
