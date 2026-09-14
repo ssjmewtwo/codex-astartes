@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Cyber-Beast Fitness & Discipline</title>
+  <title>Codex Astartes - Cognitae Warfare</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   
@@ -25,39 +25,33 @@
 <body class="bg-slate-950 text-slate-100 font-sans h-screen overflow-hidden">
 
   <!-- TOP STATUS BAR -->
-  <div class="fixed top-0 left-0 right-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800 p-3 flex justify-between items-center text-xs">
+  <div class="fixed top-0 left-0 right-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 p-3 flex justify-between items-center text-xs">
     <div class="flex items-center space-x-2">
-      <button onclick="requestNotificationPermission()" class="text-cyan-400 font-bold bg-cyan-950 border border-cyan-800 px-2.5 py-1 rounded-full flex items-center space-x-1">
-        <i data-lucide="bell" class="w-3.5 h-3.5"></i>
-        <span id="notif-status">Enable Alerts</span>
-      </button>
+      <span class="text-[10px] font-black tracking-widest uppercase text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full border border-cyan-800">COGNITAE V1.0</span>
     </div>
 
-    <!-- Active Page Indicators -->
+    <!-- Active Page Dots -->
     <div class="flex space-x-2">
-      <div id="dot-0" onclick="goToPage(0)" class="w-2.5 h-2.5 rounded-full bg-cyan-400 transition-all"></div>
-      <div id="dot-1" onclick="goToPage(1)" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all"></div>
-      <div id="dot-2" onclick="goToPage(2)" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all"></div>
+      <div id="dot-0" onclick="goToPage(0)" class="w-2.5 h-2.5 rounded-full bg-cyan-400 transition-all cursor-pointer"></div>
+      <div id="dot-1" onclick="goToPage(1)" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all cursor-pointer"></div>
+      <div id="dot-2" onclick="goToPage(2)" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all cursor-pointer"></div>
     </div>
 
     <div class="text-right text-[10px] text-slate-400">
-      <span>QRing: <strong class="text-emerald-400">92% Ready</strong></span>
+      <span>QRing: <strong class="text-emerald-400">Synced</strong></span>
     </div>
   </div>
 
   <!-- MAIN 3-PANEL SWIPE VIEWPORT -->
   <div id="swipe-wrapper" class="swipe-container h-full pt-12">
 
-    <!-- PAGE 1: CYBER-SHARK AVATAR VIEWPORT -->
+    <!-- PAGE 1: CLEAN AVATAR HERO VIEWPORT -->
     <div class="app-page flex flex-col justify-between p-4 pb-20">
       <div class="relative mt-2">
-        <div id="avatar-viewport" class="relative w-full h-[48vh] bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl flex items-center justify-center p-2 shadow-2xl overflow-hidden">
+        <div id="avatar-viewport" class="relative w-full h-[58vh] bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl flex items-center justify-center p-2 shadow-2xl overflow-hidden">
           
-          <!-- Default Animated MP4 Video Avatar -->
+          <!-- Default Animated Video Avatar -->
           <video id="avatar-video-display" class="w-full h-full object-cover rounded-2xl animate-avatar" src="cyber_shark_warrior.mp4.mp4" autoplay loop muted playsinline></video>
-
-          <!-- Fallback Image (Hidden by default) -->
-          <img id="avatar-img-display" class="hidden max-h-full max-w-full object-contain rounded-2xl" alt="Cyber-Shark Avatar"/>
 
           <div id="avatar-level" class="absolute bottom-4 right-4 bg-gradient-to-r from-red-600 to-cyan-600 text-white text-xs px-3 py-1 rounded-full font-black uppercase tracking-widest shadow-lg z-10">
             Lvl 1
@@ -65,25 +59,16 @@
         </div>
       </div>
 
-      <!-- Avatar Info & Media Uploader -->
+      <!-- Avatar Info Card -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl mt-3 space-y-3">
         <div class="flex justify-between items-center">
           <div>
-            <h2 id="avatar-title" class="text-xl font-black text-cyan-400 uppercase tracking-wide">Apex Cyber-Shark</h2>
+            <h2 id="avatar-title" class="text-xl font-black text-cyan-400 uppercase tracking-wide">Apex Cyber-Jaguar</h2>
             <p id="avatar-stage" class="text-xs text-slate-400 font-semibold">Stage 1: Cyber Predator</p>
           </div>
           <span class="text-xs text-yellow-400 bg-yellow-950/80 border border-yellow-800 px-3 py-1 rounded-full font-bold">
             💰 <span id="teeth-coins">0 Bio-Teeth</span>
           </span>
-        </div>
-
-        <!-- Custom File Upload Button -->
-        <div class="flex gap-2">
-          <input type="file" id="local-avatar-file" accept="image/*,video/mp4" class="hidden" onchange="loadLocalAvatarMedia(this)"/>
-          <button onclick="document.getElementById('local-avatar-file').click()" class="w-full bg-slate-950 hover:bg-slate-800 border border-slate-700 text-cyan-400 font-bold text-xs py-2 rounded-xl flex items-center justify-center space-x-1">
-            <i data-lucide="upload" class="w-3.5 h-3.5"></i>
-            <span>Upload Custom Video / Image</span>
-          </button>
         </div>
 
         <!-- XP Bar -->
@@ -98,90 +83,164 @@
         </div>
       </div>
       
-      <p class="text-center text-xs text-slate-500 font-bold uppercase tracking-wider mt-2">Swipe Left for Workouts ➔</p>
+      <p class="text-center text-xs text-slate-500 font-bold uppercase tracking-wider mt-2">Swipe Left for Warfare Engine ➔</p>
     </div>
 
-    <!-- PAGE 2: HEVY WORKOUT HUB -->
-    <div class="app-page p-4 pb-24 space-y-4">
-      <div class="flex justify-between items-center">
-        <div>
-          <h2 class="text-2xl font-black text-cyan-400">HEVY WORKOUT HUB</h2>
-          <p class="text-xs text-slate-400">Log sets, routines, and rest timers</p>
-        </div>
-        <select id="workout-split" class="bg-slate-900 border border-slate-700 text-xs text-cyan-300 font-bold py-2 px-3 rounded-xl focus:outline-none">
-          <option value="Push Routine">💪 Push Routine</option>
-          <option value="Pull Routine">🏋️ Pull Routine</option>
-          <option value="Leg Routine">🦵 Leg Routine</option>
-          <option value="Arms Routine">🔥 Arms Routine</option>
-          <option value="Freestyle">⚡ Freestyle</option>
-        </select>
-      </div>
-
-      <!-- Rest Timer -->
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex justify-between items-center text-xs">
-        <span class="font-bold text-yellow-400 flex items-center space-x-1">
-          <i data-lucide="timer" class="w-4 h-4"></i>
-          <span>Rest Timer: <strong id="timer-display" class="font-mono text-sm text-yellow-300">01:30</strong></span>
-        </span>
-        <div class="flex space-x-1">
-          <button onclick="startRestTimer(60)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">60s</button>
-          <button onclick="startRestTimer(90)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">90s</button>
-          <button onclick="startRestTimer(120)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">120s</button>
-        </div>
-      </div>
-
-      <!-- Set Input Engine -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
-        <div class="flex gap-2">
-          <input type="text" id="exercise-input" placeholder="Select or type exercise..." class="flex-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm font-semibold focus:outline-none focus:border-cyan-500" />
-          <button onclick="openExerciseLibrary()" class="bg-cyan-950 border border-cyan-800 text-cyan-400 px-3 py-2 rounded-lg text-xs font-bold flex items-center space-x-1">
-            <i data-lucide="book-open" class="w-4 h-4"></i>
-            <span>Library</span>
-          </button>
-        </div>
-
-        <div class="grid grid-cols-12 gap-2 text-[10px] font-black text-slate-500 uppercase tracking-wider text-center">
-          <span class="col-span-3">Kg</span>
-          <span class="col-span-3">Reps</span>
-          <span class="col-span-3">Type</span>
-          <span class="col-span-3">Action</span>
-        </div>
-
-        <div class="grid grid-cols-12 gap-2 items-center">
-          <input type="number" id="set-weight" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold" />
-          <input type="number" id="set-reps" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold" />
-          <select id="set-type" class="col-span-3 bg-slate-950 border border-slate-800 text-xs font-bold text-cyan-400 rounded-lg py-2.5 text-center">
-            <option value="Normal">Normal</option>
-            <option value="Warmup">Warmup</option>
-            <option value="Drop">Drop</option>
-            <option value="Failure">Failure</option>
-          </select>
-          <button onclick="logHevySet()" class="col-span-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black py-2.5 rounded-lg">
-            Log Set
-          </button>
-        </div>
-      </div>
-
-      <!-- Logged Sets Feed -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg">
-        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Today's Workout Feed</h4>
-        <div id="hevy-sets-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
-          <p class="text-xs text-slate-600 italic">No sets logged yet today.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAGE 3: CALORIE ENGINE & DISCIPLINE HUB -->
+    <!-- PAGE 2: COGNITAE WARFARE ENGINE (HEVY LOGGING ARCHITECTURE) -->
     <div class="app-page p-4 pb-24 space-y-4">
       <div>
-        <h2 class="text-2xl font-black text-amber-400">DISCIPLINE & CALORIES</h2>
-        <p class="text-xs text-slate-400">Track nutrition, sync QRing, and run habits</p>
+        <h2 class="text-2xl font-black text-cyan-400 uppercase tracking-wide">Cognitae Warfare Engine</h2>
+        <p class="text-xs text-slate-400">Workout Routines, Progressive Overload Coach & History</p>
       </div>
 
-      <!-- CALORIE TRACKER WIDGET -->
+      <!-- Progressive Overload Coach Alert Banner -->
+      <div id="coach-alert" class="hidden bg-red-950/80 border border-red-800 rounded-2xl p-3.5 text-xs text-red-200 flex items-start space-x-3 shadow-lg">
+        <i data-lucide="shield-alert" class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5"></i>
+        <div>
+          <p class="font-bold text-red-300 uppercase tracking-wider" id="coach-alert-title">Cognitae Coach Alert</p>
+          <p id="coach-alert-msg" class="text-slate-300 mt-0.5">Weight plateau detected. Bump load by +2.5 kg next set.</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Active Log vs Workout History) -->
+      <div class="flex bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs font-bold">
+        <button id="tab-active-btn" onclick="switchWorkoutSubTab('active')" class="flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition">Current Session</button>
+        <button id="tab-history-btn" onclick="switchWorkoutSubTab('history')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">Past Workouts Feed</button>
+      </div>
+
+      <!-- SUB-TAB 1: ACTIVE SESSION & ROUTINES -->
+      <div id="subtab-active" class="space-y-4">
+        
+        <!-- Rest Timer -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex justify-between items-center text-xs">
+          <span class="font-bold text-yellow-400 flex items-center space-x-1">
+            <i data-lucide="timer" class="w-4 h-4"></i>
+            <span>Rest Timer: <strong id="timer-display" class="font-mono text-sm text-yellow-300">01:30</strong></span>
+          </span>
+          <div class="flex space-x-1">
+            <button onclick="startRestTimer(60)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">60s</button>
+            <button onclick="startRestTimer(90)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">90s</button>
+            <button onclick="startRestTimer(120)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">120s</button>
+          </div>
+        </div>
+
+        <!-- Routine Split Dropdown -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Select Routine</span>
+            <select id="workout-split" class="bg-slate-950 border border-slate-700 text-xs text-cyan-300 font-bold py-1.5 px-3 rounded-xl focus:outline-none">
+              <option value="Arms">🔥 Arms Routine</option>
+              <option value="Push">💪 Push Routine</option>
+              <option value="Pull">🏋️ Pull Routine</option>
+              <option value="Legs">🦵 Leg Routine</option>
+              <option value="Home Kettlebell">🔔 Home Arms Kettlebell</option>
+              <option value="Cardio">🏃 Cardio & Core</option>
+            </select>
+          </div>
+
+          <!-- Set Input Row -->
+          <div class="space-y-3 pt-2">
+            <div class="flex gap-2">
+              <input type="text" id="exercise-input" placeholder="Select or type exercise..." class="flex-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm font-semibold focus:outline-none focus:border-cyan-500" />
+              <button onclick="openExerciseLibrary()" class="bg-cyan-950 border border-cyan-800 text-cyan-400 px-3 py-2 rounded-lg text-xs font-bold flex items-center space-x-1">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span>Library</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-12 gap-2 text-[10px] font-black text-slate-500 uppercase tracking-wider text-center">
+              <span class="col-span-3">Kg</span>
+              <span class="col-span-3">Reps</span>
+              <span class="col-span-3">Type</span>
+              <span class="col-span-3">Action</span>
+            </div>
+
+            <div class="grid grid-cols-12 gap-2 items-center">
+              <input type="number" id="set-weight" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold" />
+              <input type="number" id="set-reps" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold" />
+              <select id="set-type" class="col-span-3 bg-slate-950 border border-slate-800 text-xs font-bold text-cyan-400 rounded-lg py-2.5 text-center">
+                <option value="Normal">Normal</option>
+                <option value="Warmup">Warmup</option>
+                <option value="Drop">Drop</option>
+                <option value="Failure">Failure</option>
+              </select>
+              <button onclick="logHevySet()" class="col-span-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black py-2.5 rounded-lg shadow">
+                Log Set
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Logged Sets Feed -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg">
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Workout Sets</h4>
+            <button onclick="finishWorkoutSession()" class="bg-cyan-950 border border-cyan-700 text-cyan-300 font-bold px-3 py-1 rounded text-xs">Finish Workout</button>
+          </div>
+          <div id="hevy-sets-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
+            <p class="text-xs text-slate-600 italic">No sets logged in current session.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 2: PAST WORKOUT HISTORY FEED (HEVY STYLE) -->
+      <div id="subtab-history" class="hidden space-y-3">
+        <div id="workout-history-container" class="space-y-3">
+          <!-- Dynamically Populated History Cards -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PAGE 3: BODY STATS, WEIGHT TRACKER & DISCIPLINE HUB -->
+    <div class="app-page p-4 pb-24 space-y-4">
+      <div>
+        <h2 class="text-2xl font-black text-amber-400 uppercase tracking-wide">Stats & Discipline</h2>
+        <p class="text-xs text-slate-400">Weight Loss Progress, Calorie Engine & Habits</p>
+      </div>
+
+      <!-- WEIGHT TRACKER & BODY STATS -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Body Profile & Weight Loss</span>
+          <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950 border border-emerald-900 px-2 py-0.5 rounded" id="weight-checkin-alert">Daily Weigh-In Due</span>
+        </div>
+
+        <!-- Height / Weight Profile -->
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+            <p class="text-slate-500 font-bold">Height</p>
+            <input type="number" id="user-height" value="180" onchange="updateBodyStats()" class="bg-transparent text-center font-black text-slate-200 w-full focus:outline-none"/>
+            <span class="text-[9px] text-slate-600">cm</span>
+          </div>
+          <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+            <p class="text-slate-500 font-bold">Current</p>
+            <input type="number" id="user-weight" value="85.0" step="0.1" onchange="updateBodyStats()" class="bg-transparent text-center font-black text-amber-400 w-full focus:outline-none"/>
+            <span class="text-[9px] text-slate-600">kg</span>
+          </div>
+          <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+            <p class="text-slate-500 font-bold">Target</p>
+            <input type="number" id="target-weight" value="78.0" step="0.1" onchange="updateBodyStats()" class="bg-transparent text-center font-black text-emerald-400 w-full focus:outline-none"/>
+            <span class="text-[9px] text-slate-600">kg</span>
+          </div>
+        </div>
+
+        <!-- Weight Loss Progress Bar -->
+        <div>
+          <div class="flex justify-between text-[11px] text-slate-400 font-bold mb-1">
+            <span>Weight Loss Goal</span>
+            <span id="weight-loss-text">0.0 kg lost</span>
+          </div>
+          <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800">
+            <div id="weight-bar" class="bg-gradient-to-r from-amber-500 to-emerald-400 h-full w-[25%] transition-all"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALORIE ENGINE WIDGET -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
         <div class="flex justify-between items-center">
-          <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Calorie Tracker</span>
+          <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Calorie Engine</span>
           <button onclick="syncQRingHealthData()" class="bg-cyan-950 border border-cyan-800 text-cyan-400 px-2.5 py-1 rounded text-[10px] font-bold">
             Sync QRing
           </button>
@@ -228,21 +287,29 @@
         <h3 class="text-lg font-bold text-cyan-400">Hevy Exercise Database</h3>
         <button onclick="closeExerciseLibrary()" class="text-slate-400 font-bold">✕</button>
       </div>
-      <div class="space-y-2 max-h-72 overflow-y-auto pr-1 text-xs">
-        <p class="font-bold text-cyan-500 uppercase tracking-wider">Chest / Push</p>
-        <button onclick="selectExercise('Barbell Bench Press')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Barbell Bench Press</button>
-        <button onclick="selectExercise('Incline Dumbbell Press')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Incline Dumbbell Press</button>
-        <button onclick="selectExercise('Tricep Rope Pushdown')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Tricep Rope Pushdown</button>
+      
+      <!-- Custom Exercise Creator -->
+      <div class="flex gap-2">
+        <input type="text" id="custom-exercise-name" placeholder="Add new exercise..." class="flex-1 bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs focus:outline-none text-slate-200"/>
+        <button onclick="addCustomExercise()" class="bg-cyan-950 border border-cyan-700 text-cyan-300 font-bold px-3 py-1 rounded text-xs">Add</button>
+      </div>
 
-        <p class="font-bold text-cyan-500 uppercase tracking-wider pt-2">Back / Pull</p>
-        <button onclick="selectExercise('Lat Pulldown')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Lat Pulldown</button>
-        <button onclick="selectExercise('Seated Cable Row')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Seated Cable Row</button>
-        <button onclick="selectExercise('Barbell Bicep Curl')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Barbell Bicep Curl</button>
+      <div id="library-list" class="space-y-2 max-h-72 overflow-y-auto pr-1 text-xs">
+        <p class="font-bold text-cyan-500 uppercase tracking-wider">Arms / Shoulders</p>
+        <button onclick="selectExercise('Preacher Curl (Barbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Preacher Curl (Barbell)</button>
+        <button onclick="selectExercise('Triceps Pushdown')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Triceps Pushdown</button>
+        <button onclick="selectExercise('Seated Lateral Raise (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Seated Lateral Raise (Dumbbell)</button>
+        <button onclick="selectExercise('Single Arm Lateral Raise (Cable)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Single Arm Lateral Raise (Cable)</button>
+
+        <p class="font-bold text-cyan-500 uppercase tracking-wider pt-2">Chest / Push</p>
+        <button onclick="selectExercise('Incline Bench Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Incline Bench Press (Dumbbell)</button>
+        <button onclick="selectExercise('Shoulder Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Shoulder Press (Dumbbell)</button>
+        <button onclick="selectExercise('Cable Fly Crossovers')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Cable Fly Crossovers</button>
 
         <p class="font-bold text-cyan-500 uppercase tracking-wider pt-2">Legs / Core</p>
-        <button onclick="selectExercise('Barbell Back Squat')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Barbell Back Squat</button>
-        <button onclick="selectExercise('Romanian Deadlift')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Romanian Deadlift</button>
-        <button onclick="selectExercise('Hanging Leg Raise')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Hanging Leg Raise</button>
+        <button onclick="selectExercise('Bulgarian Split Squat (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Bulgarian Split Squat (Dumbbell)</button>
+        <button onclick="selectExercise('Lying Leg Curl (Machine)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Lying Leg Curl (Machine)</button>
+        <button onclick="selectExercise('Torso Rotation')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Torso Rotation</button>
       </div>
     </div>
   </div>
@@ -257,195 +324,30 @@
     let caloriesBurned = 450;
     let caloriesConsumed = 0;
     let habits = [];
-    let loggedWorkouts = [];
-    let timerInterval = null;
-
-    function loadLocalAvatarMedia(input) {
-      if (input.files && input.files[0]) {
-        const file = input.files[0];
-        const fileUrl = URL.createObjectURL(file);
-        const imgDisplay = document.getElementById('avatar-img-display');
-        const videoDisplay = document.getElementById('avatar-video-display');
-
-        if (file.type.includes('video')) {
-          imgDisplay.classList.add('hidden');
-          videoDisplay.classList.remove('hidden');
-          videoDisplay.src = fileUrl;
-          videoDisplay.play();
-        } else {
-          videoDisplay.classList.add('hidden');
-          imgDisplay.classList.remove('hidden');
-          imgDisplay.src = fileUrl;
-        }
-      }
-    }
-
-    function goToPage(index) {
-      currentPage = index;
-      document.getElementById('swipe-wrapper').style.transform = `translateX(-${index * 100}vw)`;
-      [0, 1, 2].forEach(i => {
-        document.getElementById(`dot-${i}`).className = `w-2.5 h-2.5 rounded-full transition-all ${i === index ? 'bg-cyan-400 scale-125' : 'bg-slate-700'}`;
-      });
-    }
-
-    let touchStartX = 0;
-    document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
-    document.addEventListener('touchend', e => {
-      let touchEndX = e.changedTouches[0].clientX;
-      if (touchStartX - touchEndX > 50 && currentPage < 2) goToPage(currentPage + 1);
-      if (touchEndX - touchStartX > 50 && currentPage > 0) goToPage(currentPage - 1);
-    });
-
-    function syncQRingHealthData() {
-      caloriesBurned = Math.floor(Math.random() * (680 - 450 + 1)) + 450;
-      addXP(20);
-      document.getElementById('calories-burned').innerText = `${caloriesBurned} / 600 kcal`;
-      alert(`🔥 Synced with QRing! Active burn updated to ${caloriesBurned} kcal (+20 XP).`);
-    }
-
-    document.getElementById('calorie-form').addEventListener('submit', e => {
-      e.preventDefault();
-      const input = document.getElementById('meal-calories');
-      const val = parseInt(input.value);
-      if (!val) return;
-      caloriesConsumed += val;
-      addXP(10);
-      document.getElementById('calories-consumed').innerText = `${caloriesConsumed} / 2400 kcal`;
-      input.value = '';
-    });
-
-    function openExerciseLibrary() { document.getElementById('exercise-modal').classList.remove('hidden'); }
-    function closeExerciseLibrary() { document.getElementById('exercise-modal').classList.add('hidden'); }
-    function selectExercise(name) {
-      document.getElementById('exercise-input').value = name;
-      closeExerciseLibrary();
-    }
-
-    function logHevySet() {
-      const split = document.getElementById('workout-split').value;
-      const exercise = document.getElementById('exercise-input').value || 'Freestyle Exercise';
-      const weight = document.getElementById('set-weight').value || 0;
-      const reps = document.getElementById('set-reps').value || 0;
-      const type = document.getElementById('set-type').value;
-
-      addXP(15);
-      loggedWorkouts.push({ id: Date.now(), split, exercise, weight, reps, type });
-      renderHevySets();
-      
-      document.getElementById('set-weight').value = '';
-      document.getElementById('set-reps').value = '';
-      startRestTimer(90);
-    }
-
-    function renderHevySets() {
-      const container = document.getElementById('hevy-sets-list');
-      container.innerHTML = '';
-      if (loggedWorkouts.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-600 italic">No sets logged yet today.</p>`;
-        return;
-      }
-      loggedWorkouts.forEach(w => {
-        const item = document.createElement('div');
-        item.className = 'bg-slate-950 border border-slate-800 p-2.5 rounded-xl flex justify-between items-center text-xs';
-        item.innerHTML = `
-          <div>
-            <span class="font-bold text-cyan-400">${w.exercise}</span>
-            <span class="text-[9px] uppercase bg-slate-900 px-1 py-0.5 rounded text-slate-400 border border-slate-800 ml-1">${w.type}</span>
-            <p class="text-slate-500 mt-0.5">${w.weight} kg × ${w.reps} reps (${w.split})</p>
-          </div>
-          <span class="text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-900">+15 XP</span>
-        `;
-        container.prepend(item);
-      });
-    }
-
-    function startRestTimer(seconds) {
-      clearInterval(timerInterval);
-      let remaining = seconds;
-      const display = document.getElementById('timer-display');
-      timerInterval = setInterval(() => {
-        let mins = Math.floor(remaining / 60);
-        let secs = remaining % 60;
-        display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        if (remaining <= 0) {
-          clearInterval(timerInterval);
-          display.innerText = "REST DONE!";
-        }
-        remaining--;
-      }, 1000);
-    }
-
-    function addXP(amount) {
-      xp += amount;
-      teethCoins += Math.floor(amount / 2);
-      if (xp >= xpNeeded) {
-        level++;
-        xp -= xpNeeded;
-        xpNeeded = level * 100;
-        alert(`🎉 LEVEL UP! You reached Level ${level}!`);
-      }
-      updateUI();
-    }
-
-    function updateUI() {
-      document.getElementById('avatar-level').innerText = `Lvl ${level}`;
-      document.getElementById('xp-text').innerText = `${xp} / ${xpNeeded} XP`;
-      document.getElementById('xp-bar').style.width = `${(xp / xpNeeded) * 100}%`;
-      document.getElementById('teeth-coins').innerText = `${teethCoins} Bio-Teeth`;
-      renderHabits();
-    }
-
-    document.getElementById('habit-form').addEventListener('submit', e => {
-      e.preventDefault();
-      const input = document.getElementById('habit-input');
-      habits.push({ id: Date.now(), name: input.value, streak: 0, done: false });
-      input.value = '';
-      renderHabits();
-    });
-
-    function toggleHabit(id) {
-      habits = habits.map(h => {
-        if (h.id === id && !h.done) {
-          addXP(15);
-          return { ...h, done: true, streak: h.streak + 1 };
-        }
-        return h;
-      });
-      renderHabits();
-    }
-
-    function renderHabits() {
-      const container = document.getElementById('habit-list');
-      container.innerHTML = '';
-      if (habits.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-600 italic">No habits added yet.</p>`;
-        return;
-      }
-      habits.forEach(h => {
-        const item = document.createElement('div');
-        item.className = `p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
-          h.done ? 'bg-slate-950/50 border-slate-800 opacity-60' : 'bg-slate-950 border-slate-800 hover:border-slate-700'
-        }`;
-        item.onclick = () => toggleHabit(h.id);
-        item.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <i data-lucide="${h.done ? 'check-circle' : 'circle'}" class="${h.done ? 'text-amber-400' : 'text-slate-700'}"></i>
-            <div>
-              <p class="text-sm font-semibold ${h.done ? 'line-through text-slate-500' : 'text-slate-200'}">${h.name}</p>
-              <p class="text-[10px] text-amber-500 font-bold">🔥 ${h.streak} Day Streak</p>
-            </div>
-          </div>
-          <span class="text-xs font-bold text-amber-400 bg-amber-950/60 border border-amber-900 px-2 py-1 rounded">+15 XP</span>
-        `;
-        container.appendChild(item);
-      });
-      lucide.createIcons();
-    }
-
-    window.onload = () => {
-      lucide.createIcons();
-      updateUI();
-    };
-  </script>
-</body>
-</html>
+    let currentSessionSets = [];
+    
+    // Seeded Workout History Feed
+    let pastWorkouts = [
+      {
+        id: 1,
+        title: "Home arms kettlebell",
+        timeAgo: "4 hours ago",
+        duration: "16min",
+        volume: "2,520 kg",
+        exercises: ["3 sets Torso Rotation", "3 sets Kettlebell Chop"]
+      },
+      {
+        id: 2,
+        title: "Arms Routine",
+        timeAgo: "Yesterday",
+        duration: "1h 1min",
+        volume: "5,912.5 kg",
+        exercises: ["4 sets Preacher Curl (Barbell)", "4 sets Triceps Pushdown", "4 sets Seated Lateral Raise"]
+      },
+      {
+        id: 3,
+        title: "Legs Routine",
+        timeAgo: "5 days ago",
+        duration: "54min",
+        volume: "10,435 kg",
+        exercises: ["4 sets Bulgarian Split Squat", "2 sets Lying Leg Curl", "4 
