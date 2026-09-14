@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Codex Astartes - Cognitae Warfare</title>
+  <title>Codex Astartes - The Forge</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   
@@ -29,7 +29,7 @@
   <!-- TOP STATUS BAR -->
   <div class="bg-slate-950/90 backdrop-blur-md border-b border-slate-800 p-3 flex justify-between items-center text-xs z-40">
     <div class="flex items-center space-x-2">
-      <span class="text-[10px] font-black tracking-widest uppercase text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full border border-cyan-800">COGNITAE V1.0</span>
+      <span class="text-[10px] font-black tracking-widest uppercase text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full border border-cyan-800">THE FORGE V1.0</span>
     </div>
 
     <!-- Active Page Dots -->
@@ -48,13 +48,13 @@
   <div id="app-viewport">
     <div id="swipe-wrapper" class="swipe-container">
 
-      <!-- PAGE 1: AVATAR VIEWPORT -->
+      <!-- PAGE 1: CYBER-PUMA AVATAR HERO VIEWPORT -->
       <div class="app-page flex flex-col justify-between p-4">
         <div class="relative mt-2">
           <div id="avatar-viewport" class="relative w-full h-[50vh] bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl flex items-center justify-center p-2 shadow-2xl overflow-hidden">
             
-            <!-- Video linked to exact repository filename -->
-            <video id="avatar-video-display" class="w-full h-full object-cover rounded-2xl animate-avatar" src="cyber_shark_warrior.mp4.mp4" autoplay loop muted playsinline></video>
+            <!-- Video linked to exact long file name -->
+            <video id="avatar-video-display" class="w-full h-full object-cover rounded-2xl animate-avatar" src="Avatar_performing_cat_stretch_an…_20260914195517" autoplay loop muted playsinline></video>
             
             <div id="avatar-level" class="absolute bottom-4 right-4 bg-gradient-to-r from-red-600 to-cyan-600 text-white text-xs px-3 py-1 rounded-full font-black uppercase tracking-widest shadow-lg z-10">
               Lvl 1
@@ -65,8 +65,8 @@
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl mt-3 space-y-3">
           <div class="flex justify-between items-center">
             <div>
-              <h2 id="avatar-title" class="text-xl font-black text-cyan-400 uppercase tracking-wide">Apex Warrior</h2>
-              <p id="avatar-stage" class="text-xs text-slate-400 font-semibold">Stage 1: Cyber Predator</p>
+              <h2 id="avatar-title" class="text-xl font-black text-cyan-400 uppercase tracking-wide">Cyber-Puma</h2>
+              <p id="avatar-stage" class="text-xs text-slate-400 font-semibold">Stage 1: Rookie Predatory Form</p>
             </div>
             <span class="text-xs text-yellow-400 bg-yellow-950/80 border border-yellow-800 px-3 py-1 rounded-full font-bold">
               💰 <span id="teeth-coins">0 Bio-Teeth</span>
@@ -85,28 +85,67 @@
         </div>
       </div>
 
-      <!-- PAGE 2: COGNITAE WARFARE ENGINE -->
+      <!-- PAGE 2: THE FORGE (HEVY WORKOUT ENGINE) -->
       <div class="app-page p-4 space-y-4">
         <div>
-          <h2 class="text-2xl font-black text-cyan-400 uppercase tracking-wide">Cognitae Warfare Engine</h2>
-          <p class="text-xs text-slate-400">Workout Routines, Progressive Overload Coach & History</p>
+          <h2 class="text-2xl font-black text-cyan-400 uppercase tracking-wide">The Forge</h2>
+          <p class="text-xs text-slate-400">Hevy Routines, Active Logging & Overload Coaching</p>
         </div>
 
         <div id="coach-alert" class="hidden bg-red-950/80 border border-red-800 rounded-2xl p-3.5 text-xs text-red-200 flex items-start space-x-3 shadow-lg">
           <i data-lucide="shield-alert" class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5"></i>
           <div>
-            <p class="font-bold text-red-300 uppercase tracking-wider" id="coach-alert-title">Cognitae Coach Alert</p>
-            <p id="coach-alert-msg" class="text-slate-300 mt-0.5">Weight plateau detected. Bump load by +2.5 kg next set.</p>
+            <p class="font-bold text-red-300 uppercase tracking-wider" id="coach-alert-title">Forge AI Coach</p>
+            <p id="coach-alert-msg" class="text-slate-300 mt-0.5">Weight threshold reached. Increase load next session.</p>
           </div>
         </div>
 
+        <!-- Navigation Tabs -->
         <div class="flex bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs font-bold">
-          <button id="tab-active-btn" type="button" onclick="switchWorkoutSubTab('active')" class="flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition">Current Session</button>
-          <button id="tab-history-btn" type="button" onclick="switchWorkoutSubTab('history')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">Past Workouts Feed</button>
+          <button id="tab-routines-btn" type="button" onclick="switchForgeTab('routines')" class="flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition">Routines</button>
+          <button id="tab-active-btn" type="button" onclick="switchForgeTab('active')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">Current Session</button>
+          <button id="tab-history-btn" type="button" onclick="switchForgeTab('history')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">History</button>
         </div>
 
-        <!-- SUB-TAB 1: ACTIVE SESSION -->
-        <div id="subtab-active" class="space-y-4">
+        <!-- TAB 1: ROUTINES LIST (HEVY STYLE) -->
+        <div id="forgetab-routines" class="space-y-3">
+          <button type="button" onclick="startEmptyWorkout()" class="w-full bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-xl p-3 text-left font-bold text-xs text-cyan-400 flex justify-between items-center shadow">
+            <span>+ Start Empty Workout</span>
+            <i data-lucide="plus" class="w-4 h-4"></i>
+          </button>
+
+          <div class="space-y-2.5">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2 shadow-md">
+              <div class="flex justify-between items-center">
+                <h4 class="font-black text-sm text-slate-100">Arms Routine</h4>
+                <span class="text-[10px] text-slate-500 font-bold">4 Exercises</span>
+              </div>
+              <p class="text-xs text-slate-400">Preacher Curl, Triceps Pushdown, Seated Lateral Raise, Single Arm Cable</p>
+              <button type="button" onclick="startRoutine('Arms')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-2 rounded-xl text-xs mt-2 transition">Start Routine</button>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2 shadow-md">
+              <div class="flex justify-between items-center">
+                <h4 class="font-black text-sm text-slate-100">Push Routine</h4>
+                <span class="text-[10px] text-slate-500 font-bold">3 Exercises</span>
+              </div>
+              <p class="text-xs text-slate-400">Incline Dumbbell Press, Shoulder Press, Cable Fly Crossovers</p>
+              <button type="button" onclick="startRoutine('Push')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-2 rounded-xl text-xs mt-2 transition">Start Routine</button>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2 shadow-md">
+              <div class="flex justify-between items-center">
+                <h4 class="font-black text-sm text-slate-100">Home Arms Kettlebell</h4>
+                <span class="text-[10px] text-slate-500 font-bold">2 Exercises</span>
+              </div>
+              <p class="text-xs text-slate-400">Torso Rotation, Kettlebell Chop</p>
+              <button type="button" onclick="startRoutine('Home Kettlebell')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-2 rounded-xl text-xs mt-2 transition">Start Routine</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: ACTIVE SESSION LOGGER -->
+        <div id="forgetab-active" class="hidden space-y-4">
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex justify-between items-center text-xs">
             <span class="font-bold text-yellow-400 flex items-center space-x-1">
               <i data-lucide="timer" class="w-4 h-4"></i>
@@ -121,15 +160,8 @@
 
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
             <div class="flex justify-between items-center">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Select Routine</span>
-              <select id="workout-split" class="bg-slate-950 border border-slate-700 text-xs text-cyan-300 font-bold py-1.5 px-3 rounded-xl focus:outline-none">
-                <option value="Arms">🔥 Arms Routine</option>
-                <option value="Push">💪 Push Routine</option>
-                <option value="Pull">🏋️ Pull Routine</option>
-                <option value="Legs">🦵 Leg Routine</option>
-                <option value="Home Kettlebell">🔔 Home Arms Kettlebell</option>
-                <option value="Cardio">🏃 Cardio & Core</option>
-              </select>
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Split</span>
+              <span id="active-split-label" class="text-xs font-black text-cyan-400">Freestyle Session</span>
             </div>
 
             <div class="space-y-3 pt-2">
@@ -166,8 +198,8 @@
 
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg">
             <div class="flex justify-between items-center mb-3">
-              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Workout Sets</h4>
-              <button type="button" onclick="finishWorkoutSession()" class="bg-cyan-950 border border-cyan-700 text-cyan-300 font-bold px-3 py-1 rounded text-xs">Finish Workout</button>
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Logged Sets Feed</h4>
+              <button type="button" onclick="finishWorkoutSession()" class="bg-emerald-950 border border-emerald-700 text-emerald-300 font-bold px-3 py-1 rounded text-xs">Finish Workout</button>
             </div>
             <div id="hevy-sets-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
               <p class="text-xs text-slate-600 italic">No sets logged in current session.</p>
@@ -175,8 +207,8 @@
           </div>
         </div>
 
-        <!-- SUB-TAB 2: HISTORY FEED -->
-        <div id="subtab-history" class="hidden space-y-3 pb-12">
+        <!-- TAB 3: HISTORY FEED (HEVY LOG ARCHITECTURE) -->
+        <div id="forgetab-history" class="hidden space-y-3 pb-12">
           <div id="workout-history-container" class="space-y-3"></div>
         </div>
       </div>
@@ -266,8 +298,8 @@
       <span>Avatar</span>
     </button>
     <button type="button" onclick="goToPage(1)" id="nav-btn-1" class="flex flex-col items-center text-slate-500 font-bold text-[10px]">
-      <i data-lucide="dumbbell" class="w-5 h-5 mb-0.5"></i>
-      <span>Workout</span>
+      <i data-lucide="anvil" class="w-5 h-5 mb-0.5"></i>
+      <span>The Forge</span>
     </button>
     <button type="button" onclick="goToPage(2)" id="nav-btn-2" class="flex flex-col items-center text-slate-500 font-bold text-[10px]">
       <i data-lucide="flame" class="w-5 h-5 mb-0.5"></i>
@@ -293,14 +325,17 @@
         <button type="button" onclick="selectExercise('Preacher Curl (Barbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Preacher Curl (Barbell)</button>
         <button type="button" onclick="selectExercise('Triceps Pushdown')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Triceps Pushdown</button>
         <button type="button" onclick="selectExercise('Seated Lateral Raise (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Seated Lateral Raise (Dumbbell)</button>
-        
+        <button type="button" onclick="selectExercise('Single Arm Lateral Raise (Cable)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Single Arm Lateral Raise (Cable)</button>
+
         <p class="font-bold text-cyan-500 uppercase tracking-wider pt-2">Chest / Push</p>
         <button type="button" onclick="selectExercise('Incline Bench Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Incline Bench Press (Dumbbell)</button>
         <button type="button" onclick="selectExercise('Shoulder Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Shoulder Press (Dumbbell)</button>
-        
+        <button type="button" onclick="selectExercise('Cable Fly Crossovers')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Cable Fly Crossovers</button>
+
         <p class="font-bold text-cyan-500 uppercase tracking-wider pt-2">Legs / Core</p>
         <button type="button" onclick="selectExercise('Bulgarian Split Squat (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Bulgarian Split Squat (Dumbbell)</button>
         <button type="button" onclick="selectExercise('Lying Leg Curl (Machine)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Lying Leg Curl (Machine)</button>
+        <button type="button" onclick="selectExercise('Torso Rotation')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Torso Rotation</button>
       </div>
     </div>
   </div>
@@ -316,11 +351,13 @@
     let caloriesConsumed = 0;
     let habits = [];
     let currentSessionSets = [];
+    let activeSplitName = "Freestyle Session";
     let timerInterval = null;
 
     let pastWorkouts = [
       { id: 1, title: "Home arms kettlebell", timeAgo: "4 hours ago", duration: "16min", volume: "2,520 kg", exercises: ["3 sets Torso Rotation", "3 sets Kettlebell Chop"] },
-      { id: 2, title: "Arms Routine", timeAgo: "Yesterday", duration: "1h 1min", volume: "5,912.5 kg", exercises: ["4 sets Preacher Curl", "4 sets Triceps Pushdown"] }
+      { id: 2, title: "Arms Routine", timeAgo: "Yesterday", duration: "1h 1min", volume: "5,912.5 kg", exercises: ["4 sets Preacher Curl", "4 sets Triceps Pushdown", "4 sets Seated Lateral Raise"] },
+      { id: 3, title: "Legs Routine", timeAgo: "5 days ago", duration: "54min", volume: "10,435 kg", exercises: ["4 sets Bulgarian Split Squat", "2 sets Lying Leg Curl"] }
     ];
 
     function goToPage(index) {
@@ -354,19 +391,28 @@
       }
     }, { passive: true });
 
-    function switchWorkoutSubTab(tab) {
-      if (tab === 'active') {
-        document.getElementById('subtab-active').classList.remove('hidden');
-        document.getElementById('subtab-history').classList.add('hidden');
-        document.getElementById('tab-active-btn').className = 'flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition';
-        document.getElementById('tab-history-btn').className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition';
-      } else {
-        document.getElementById('subtab-active').classList.add('hidden');
-        document.getElementById('subtab-history').classList.remove('hidden');
-        document.getElementById('tab-history-btn').className = 'flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition';
-        document.getElementById('tab-active-btn').className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition';
-        renderWorkoutHistory();
-      }
+    function switchForgeTab(tab) {
+      ['routines', 'active', 'history'].forEach(t => {
+        document.getElementById(`forgetab-${t}`).classList.add('hidden');
+        document.getElementById(`tab-${t}-btn`).className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition';
+      });
+
+      document.getElementById(`forgetab-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}-btn`).className = 'flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition';
+
+      if (tab === 'history') renderWorkoutHistory();
+    }
+
+    function startEmptyWorkout() {
+      activeSplitName = "Freestyle Session";
+      document.getElementById('active-split-label').innerText = activeSplitName;
+      switchForgeTab('active');
+    }
+
+    function startRoutine(name) {
+      activeSplitName = name + " Routine";
+      document.getElementById('active-split-label').innerText = activeSplitName;
+      switchForgeTab('active');
     }
 
     function checkProgressiveOverload(exercise, reps, weight) {
@@ -395,14 +441,13 @@
     }
 
     function logHevySet() {
-      const split = document.getElementById('workout-split').value;
       const exercise = document.getElementById('exercise-input').value || 'Freestyle Exercise';
       const weight = parseFloat(document.getElementById('set-weight').value) || 0;
       const reps = parseInt(document.getElementById('set-reps').value) || 0;
       const type = document.getElementById('set-type').value;
 
       addXP(15);
-      currentSessionSets.push({ id: Date.now(), split, exercise, weight, reps, type });
+      currentSessionSets.push({ id: Date.now(), split: activeSplitName, exercise, weight, reps, type });
       renderCurrentSets();
       checkProgressiveOverload(exercise, reps, weight);
 
@@ -441,7 +486,7 @@
 
       pastWorkouts.unshift({
         id: Date.now(),
-        title: document.getElementById('workout-split').value + " Routine",
+        title: activeSplitName,
         timeAgo: "Just now",
         duration: "45min",
         volume: `${totalVol} kg`,
@@ -452,7 +497,7 @@
       renderCurrentSets();
       addXP(50);
       alert("⚔️ WORKOUT FINISHED! Logged to History (+50 XP)");
-      switchWorkoutSubTab('history');
+      switchForgeTab('history');
     }
 
     function renderWorkoutHistory() {
