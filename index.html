@@ -48,11 +48,14 @@
   <div id="app-viewport">
     <div id="swipe-wrapper" class="swipe-container">
 
-      <!-- PAGE 1: CYBER-PUMA AVATAR VIEWPORT -->
+      <!-- PAGE 1: AVATAR VIEWPORT -->
       <div class="app-page flex flex-col justify-between p-4">
         <div class="relative mt-2">
           <div id="avatar-viewport" class="relative w-full h-[50vh] bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl flex items-center justify-center p-2 shadow-2xl overflow-hidden">
-            <video id="avatar-video-display" class="w-full h-full object-cover rounded-2xl animate-avatar" src="cyber_puma.mp4" autoplay loop muted playsinline></video>
+            
+            <!-- Video linked to exact repository filename -->
+            <video id="avatar-video-display" class="w-full h-full object-cover rounded-2xl animate-avatar" src="cyber_shark_warrior.mp4.mp4" autoplay loop muted playsinline></video>
+            
             <div id="avatar-level" class="absolute bottom-4 right-4 bg-gradient-to-r from-red-600 to-cyan-600 text-white text-xs px-3 py-1 rounded-full font-black uppercase tracking-widest shadow-lg z-10">
               Lvl 1
             </div>
@@ -62,8 +65,8 @@
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl mt-3 space-y-3">
           <div class="flex justify-between items-center">
             <div>
-              <h2 id="avatar-title" class="text-xl font-black text-cyan-400 uppercase tracking-wide">Cyber-Puma</h2>
-              <p id="avatar-stage" class="text-xs text-slate-400 font-semibold">Stage 1: Rookie Predatory Form</p>
+              <h2 id="avatar-title" class="text-xl font-black text-cyan-400 uppercase tracking-wide">Apex Warrior</h2>
+              <p id="avatar-stage" class="text-xs text-slate-400 font-semibold">Stage 1: Cyber Predator</p>
             </div>
             <span class="text-xs text-yellow-400 bg-yellow-950/80 border border-yellow-800 px-3 py-1 rounded-full font-bold">
               💰 <span id="teeth-coins">0 Bio-Teeth</span>
@@ -320,10 +323,281 @@
       { id: 2, title: "Arms Routine", timeAgo: "Yesterday", duration: "1h 1min", volume: "5,912.5 kg", exercises: ["4 sets Preacher Curl", "4 sets Triceps Pushdown"] }
     ];
 
-    // PAGE NAVIGATION
     function goToPage(index) {
       currentPage = index;
       document.getElementById('swipe-wrapper').style.transform = `translateX(-${index * 100}vw)`;
       
       [0, 1, 2].forEach(i => {
-        document.getElementById(`dot-${i}`).cl
+        document.getElementById(`dot-${i}`).className = `w-2.5 h-2.5 rounded-full transition-all ${i === index ? 'bg-cyan-400 scale-125' : 'bg-slate-700'}`;
+        document.getElementById(`nav-btn-${i}`).className = `flex flex-col items-center font-bold text-[10px] ${i === index ? 'text-cyan-400' : 'text-slate-500'}`;
+      });
+    }
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', e => {
+      let touchEndX = e.changedTouches[0].clientX;
+      let touchEndY = e.changedTouches[0].clientY;
+      
+      let diffX = touchStartX - touchEndX;
+      let diffY = touchStartY - touchEndY;
+
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
+        if (diffX > 0 && currentPage < 2) goToPage(currentPage + 1);
+        if (diffX < 0 && currentPage > 0) goToPage(currentPage - 1);
+      }
+    }, { passive: true });
+
+    function switchWorkoutSubTab(tab) {
+      if (tab === 'active') {
+        document.getElementById('subtab-active').classList.remove('hidden');
+        document.getElementById('subtab-history').classList.add('hidden');
+        document.getElementById('tab-active-btn').className = 'flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition';
+        document.getElementById('tab-history-btn').className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition';
+      } else {
+        document.getElementById('subtab-active').classList.add('hidden');
+        document.getElementById('subtab-history').classList.remove('hidden');
+        document.getElementById('tab-history-btn').className = 'flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition';
+        document.getElementById('tab-active-btn').className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition';
+        renderWorkoutHistory();
+      }
+    }
+
+    function checkProgressiveOverload(exercise, reps, weight) {
+      const coachAlert = document.getElementById('coach-alert');
+      const coachMsg = document.getElementById('coach-alert-msg');
+      if (reps >= 15) {
+        coachAlert.classList.remove('hidden');
+        coachMsg.innerText = `⚔️ STRENGTH THRESHOLD CLEARED: You completed ${reps} reps on ${exercise}! Increase load by +2.5kg next session.`;
+      } else {
+        coachAlert.classList.add('hidden');
+      }
+    }
+
+    function openExerciseLibrary() { document.getElementById('exercise-modal').classList.remove('hidden'); }
+    function closeExerciseLibrary() { document.getElementById('exercise-modal').classList.add('hidden'); }
+    function selectExercise(name) {
+      document.getElementById('exercise-input').value = name;
+      closeExerciseLibrary();
+    }
+
+    function addCustomExercise() {
+      const name = document.getElementById('custom-exercise-name').value;
+      if (!name) return;
+      selectExercise(name);
+      document.getElementById('custom-exercise-name').value = '';
+    }
+
+    function logHevySet() {
+      const split = document.getElementById('workout-split').value;
+      const exercise = document.getElementById('exercise-input').value || 'Freestyle Exercise';
+      const weight = parseFloat(document.getElementById('set-weight').value) || 0;
+      const reps = parseInt(document.getElementById('set-reps').value) || 0;
+      const type = document.getElementById('set-type').value;
+
+      addXP(15);
+      currentSessionSets.push({ id: Date.now(), split, exercise, weight, reps, type });
+      renderCurrentSets();
+      checkProgressiveOverload(exercise, reps, weight);
+
+      document.getElementById('set-weight').value = '';
+      document.getElementById('set-reps').value = '';
+      startRestTimer(90);
+    }
+
+    function renderCurrentSets() {
+      const container = document.getElementById('hevy-sets-list');
+      container.innerHTML = '';
+      if (currentSessionSets.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-600 italic">No sets logged in current session.</p>`;
+        return;
+      }
+      currentSessionSets.forEach(w => {
+        const item = document.createElement('div');
+        item.className = 'bg-slate-950 border border-slate-800 p-2.5 rounded-xl flex justify-between items-center text-xs';
+        item.innerHTML = `
+          <div>
+            <span class="font-bold text-cyan-400">${w.exercise}</span>
+            <span class="text-[9px] uppercase bg-slate-900 px-1 py-0.5 rounded text-slate-400 border border-slate-800 ml-1">${w.type}</span>
+            <p class="text-slate-500 mt-0.5">${w.weight} kg × ${w.reps} reps</p>
+          </div>
+          <span class="text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-900">+15 XP</span>
+        `;
+        container.prepend(item);
+      });
+    }
+
+    function finishWorkoutSession() {
+      if (currentSessionSets.length === 0) return;
+      
+      let totalVol = currentSessionSets.reduce((acc, s) => acc + (s.weight * s.reps), 0);
+      let exercisesLogged = [...new Set(currentSessionSets.map(s => s.exercise))];
+
+      pastWorkouts.unshift({
+        id: Date.now(),
+        title: document.getElementById('workout-split').value + " Routine",
+        timeAgo: "Just now",
+        duration: "45min",
+        volume: `${totalVol} kg`,
+        exercises: exercisesLogged.map(e => `${currentSessionSets.filter(s => s.exercise === e).length} sets ${e}`)
+      });
+
+      currentSessionSets = [];
+      renderCurrentSets();
+      addXP(50);
+      alert("⚔️ WORKOUT FINISHED! Logged to History (+50 XP)");
+      switchWorkoutSubTab('history');
+    }
+
+    function renderWorkoutHistory() {
+      const container = document.getElementById('workout-history-container');
+      container.innerHTML = '';
+      pastWorkouts.forEach(w => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2 shadow-lg';
+        card.innerHTML = `
+          <div class="flex justify-between items-start border-b border-slate-800/80 pb-2">
+            <div>
+              <p class="text-xs text-slate-500 font-semibold">${w.timeAgo}</p>
+              <h4 class="font-black text-sm text-cyan-300 mt-0.5">${w.title}</h4>
+            </div>
+            <div class="text-right text-[10px] text-slate-400">
+              <p>Time: <strong class="text-white">${w.duration}</strong></p>
+              <p>Volume: <strong class="text-emerald-400">${w.volume}</strong></p>
+            </div>
+          </div>
+          <div class="space-y-1 text-xs text-slate-400 pt-1">
+            ${w.exercises.map(e => `<p class="flex items-center space-x-1"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full inline-block"></span><span>${e}</span></p>`).join('')}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updateBodyStats() {
+      const current = parseFloat(document.getElementById('user-weight').value) || 85;
+      const target = parseFloat(document.getElementById('target-weight').value) || 78;
+      const startWeight = 90.0;
+
+      const lost = (startWeight - current).toFixed(1);
+      document.getElementById('weight-loss-text').innerText = `${lost} kg lost total`;
+      
+      const percent = Math.min(100, Math.max(10, ((startWeight - current) / (startWeight - target)) * 100));
+      document.getElementById('weight-bar').style.width = `${percent}%`;
+    }
+
+    function startRestTimer(seconds) {
+      clearInterval(timerInterval);
+      let remaining = seconds;
+      const display = document.getElementById('timer-display');
+      timerInterval = setInterval(() => {
+        let mins = Math.floor(remaining / 60);
+        let secs = remaining % 60;
+        display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          display.innerText = "REST DONE!";
+        }
+        remaining--;
+      }, 1000);
+    }
+
+    function syncQRingHealthData() {
+      caloriesBurned = Math.floor(Math.random() * (680 - 450 + 1)) + 450;
+      addXP(20);
+      document.getElementById('calories-burned').innerText = `${caloriesBurned} / 600 kcal`;
+      alert(`🔥 Synced with QRing! Active burn updated to ${caloriesBurned} kcal (+20 XP).`);
+    }
+
+    document.getElementById('calorie-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('meal-calories');
+      const val = parseInt(input.value);
+      if (!val) return;
+      caloriesConsumed += val;
+      addXP(10);
+      document.getElementById('calories-consumed').innerText = `${caloriesConsumed} / 2400 kcal`;
+      input.value = '';
+    });
+
+    function addXP(amount) {
+      xp += amount;
+      teethCoins += Math.floor(amount / 2);
+      if (xp >= xpNeeded) {
+        level++;
+        xp -= xpNeeded;
+        xpNeeded = level * 100;
+        alert(`🎉 LEVEL UP! You reached Level ${level}!`);
+      }
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('avatar-level').innerText = `Lvl ${level}`;
+      document.getElementById('xp-text').innerText = `${xp} / ${xpNeeded} XP`;
+      document.getElementById('xp-bar').style.width = `${(xp / xpNeeded) * 100}%`;
+      document.getElementById('teeth-coins').innerText = `${teethCoins} Bio-Teeth`;
+      renderHabits();
+    }
+
+    document.getElementById('habit-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('habit-input');
+      habits.push({ id: Date.now(), name: input.value, streak: 0, done: false });
+      input.value = '';
+      renderHabits();
+    });
+
+    function toggleHabit(id) {
+      habits = habits.map(h => {
+        if (h.id === id && !h.done) {
+          addXP(15);
+          return { ...h, done: true, streak: h.streak + 1 };
+        }
+        return h;
+      });
+      renderHabits();
+    }
+
+    function renderHabits() {
+      const container = document.getElementById('habit-list');
+      container.innerHTML = '';
+      if (habits.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-600 italic">No habits added yet.</p>`;
+        return;
+      }
+      habits.forEach(h => {
+        const item = document.createElement('div');
+        item.className = `p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
+          h.done ? 'bg-slate-950/50 border-slate-800 opacity-60' : 'bg-slate-950 border-slate-800 hover:border-slate-700'
+        }`;
+        item.onclick = () => toggleHabit(h.id);
+        item.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <i data-lucide="${h.done ? 'check-circle' : 'circle'}" class="${h.done ? 'text-amber-400' : 'text-slate-700'}"></i>
+            <div>
+              <p class="text-sm font-semibold ${h.done ? 'line-through text-slate-500' : 'text-slate-200'}">${h.name}</p>
+              <p class="text-[10px] text-amber-500 font-bold">🔥 ${h.streak} Day Streak</p>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-amber-400 bg-amber-950/60 border border-amber-900 px-2 py-1 rounded">+15 XP</span>
+        `;
+        container.appendChild(item);
+      });
+      lucide.createIcons();
+    }
+
+    window.onload = () => {
+      lucide.createIcons();
+      updateUI();
+      updateBodyStats();
+    };
+  </script>
+</body>
+</html>
