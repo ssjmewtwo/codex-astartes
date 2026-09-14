@@ -11,11 +11,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="https://i.postimg.cc/TL2dRjC3/icon-1024.png">
 
   <style>
-    html, body { height: 100%; overflow: hidden; margin: 0; padding: 0; }
+    /* Bulletproof Mobile Viewport Fix */
+    html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; touch-action: manipulation; background-color: #020617; color: #f1f5f9; font-family: sans-serif; }
     
-    #app-viewport { width: 100vw; height: calc(100vh - 120px); overflow: hidden; position: relative; left: 0; top: 0; }
-    .swipe-container { display: flex; width: 300vw; height: 100%; position: absolute; left: 0; top: 0; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
-    .app-page { width: 100vw; height: 100%; flex-shrink: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    #top-bar { position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 50; }
+    #bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 64px; z-index: 50; }
+    
+    #app-viewport { position: absolute; top: 56px; bottom: 64px; left: 0; right: 0; overflow: hidden; }
+    .swipe-container { display: flex; width: 300vw; height: 100%; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+    .app-page { width: 100vw; height: 100%; overflow-y: auto; overflow-x: hidden; padding: 16px; padding-bottom: 32px; -webkit-overflow-scrolling: touch; }
     
     @keyframes cyberPulse {
       0%, 100% { filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.5)); }
@@ -24,19 +28,19 @@
     .animate-avatar { animation: cyberPulse 3.5s infinite ease-in-out; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans h-screen flex flex-col justify-between">
+<body>
 
   <!-- TOP STATUS BAR -->
-  <div class="bg-slate-950/90 backdrop-blur-md border-b border-slate-800 p-3 flex justify-between items-center text-xs z-40">
+  <div id="top-bar" class="bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-4 flex justify-between items-center text-xs">
     <div class="flex items-center space-x-2">
       <span class="text-[10px] font-black tracking-widest uppercase text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full border border-cyan-800">COGNITAE V1.0</span>
     </div>
 
     <!-- Active Page Dots -->
     <div class="flex space-x-2">
-      <div id="dot-0" onclick="goToPage(0)" class="w-2.5 h-2.5 rounded-full bg-cyan-400 transition-all cursor-pointer"></div>
-      <div id="dot-1" onclick="goToPage(1)" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all cursor-pointer"></div>
-      <div id="dot-2" onclick="goToPage(2)" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all cursor-pointer"></div>
+      <div id="dot-0" class="w-2.5 h-2.5 rounded-full bg-cyan-400 transition-all"></div>
+      <div id="dot-1" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all"></div>
+      <div id="dot-2" class="w-2.5 h-2.5 rounded-full bg-slate-700 transition-all"></div>
     </div>
 
     <div class="text-right text-[10px] text-slate-400">
@@ -49,17 +53,18 @@
     <div id="swipe-wrapper" class="swipe-container">
 
       <!-- PAGE 1: CYBER-PUMA AVATAR VIEWPORT -->
-      <div class="app-page flex flex-col justify-between p-4">
-        <div class="relative mt-2">
-          <div id="avatar-viewport" class="relative w-full h-[50vh] bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl flex items-center justify-center p-2 shadow-2xl overflow-hidden">
-            <video id="avatar-video-display" class="w-full h-full object-cover rounded-2xl animate-avatar" src="cyber_puma.mp4" autoplay loop muted playsinline></video>
-            <div id="avatar-level" class="absolute bottom-4 right-4 bg-gradient-to-r from-red-600 to-cyan-600 text-white text-xs px-3 py-1 rounded-full font-black uppercase tracking-widest shadow-lg z-10">
-              Lvl 1
-            </div>
+      <div class="app-page flex flex-col justify-start">
+        <div class="relative w-full h-[45vh] bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl flex items-center justify-center p-2 shadow-2xl overflow-hidden shrink-0">
+          
+          <!-- CORRECTED VIDEO FILE NAME -->
+          <video id="avatar-video-display" class="w-full h-full object-cover rounded-2xl animate-avatar" src="puma.mp4" autoplay loop muted playsinline></video>
+          
+          <div id="avatar-level" class="absolute bottom-4 right-4 bg-gradient-to-r from-red-600 to-cyan-600 text-white text-xs px-3 py-1 rounded-full font-black uppercase tracking-widest shadow-lg z-10">
+            Lvl 1
           </div>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl mt-3 space-y-3">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl mt-4 space-y-3 shrink-0">
           <div class="flex justify-between items-center">
             <div>
               <h2 id="avatar-title" class="text-xl font-black text-cyan-400 uppercase tracking-wide">Cyber-Puma</h2>
@@ -83,14 +88,14 @@
       </div>
 
       <!-- PAGE 2: COGNITAE WARFARE ENGINE -->
-      <div class="app-page p-4 space-y-4">
+      <div class="app-page space-y-4">
         <div>
           <h2 class="text-2xl font-black text-cyan-400 uppercase tracking-wide">Cognitae Warfare Engine</h2>
           <p class="text-xs text-slate-400">Workout Routines, Progressive Overload Coach & History</p>
         </div>
 
         <div id="coach-alert" class="hidden bg-red-950/80 border border-red-800 rounded-2xl p-3.5 text-xs text-red-200 flex items-start space-x-3 shadow-lg">
-          <i data-lucide="shield-alert" class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5"></i>
+          <i data-lucide="shield-alert" class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5 pointer-events-none"></i>
           <div>
             <p class="font-bold text-red-300 uppercase tracking-wider" id="coach-alert-title">Cognitae Coach Alert</p>
             <p id="coach-alert-msg" class="text-slate-300 mt-0.5">Weight plateau detected. Bump load by +2.5 kg next set.</p>
@@ -98,21 +103,21 @@
         </div>
 
         <div class="flex bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs font-bold">
-          <button id="tab-active-btn" type="button" onclick="switchWorkoutSubTab('active')" class="flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition">Current Session</button>
-          <button id="tab-history-btn" type="button" onclick="switchWorkoutSubTab('history')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">Past Workouts Feed</button>
+          <button type="button" id="tab-active-btn" onclick="switchWorkoutSubTab('active')" class="flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition cursor-pointer">Current Session</button>
+          <button type="button" id="tab-history-btn" onclick="switchWorkoutSubTab('history')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition cursor-pointer">Past Workouts</button>
         </div>
 
         <!-- SUB-TAB 1: ACTIVE SESSION -->
         <div id="subtab-active" class="space-y-4">
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex justify-between items-center text-xs">
             <span class="font-bold text-yellow-400 flex items-center space-x-1">
-              <i data-lucide="timer" class="w-4 h-4"></i>
+              <i data-lucide="timer" class="w-4 h-4 pointer-events-none"></i>
               <span>Rest Timer: <strong id="timer-display" class="font-mono text-sm text-yellow-300">01:30</strong></span>
             </span>
             <div class="flex space-x-1">
-              <button type="button" onclick="startRestTimer(60)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">60s</button>
-              <button type="button" onclick="startRestTimer(90)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">90s</button>
-              <button type="button" onclick="startRestTimer(120)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded">120s</button>
+              <button type="button" onclick="startRestTimer(60)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded cursor-pointer">60s</button>
+              <button type="button" onclick="startRestTimer(90)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded cursor-pointer">90s</button>
+              <button type="button" onclick="startRestTimer(120)" class="bg-slate-800 text-slate-300 px-2 py-1 rounded cursor-pointer">120s</button>
             </div>
           </div>
 
@@ -132,8 +137,8 @@
             <div class="space-y-3 pt-2">
               <div class="flex gap-2">
                 <input type="text" id="exercise-input" placeholder="Select or type exercise..." class="flex-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm font-semibold focus:outline-none focus:border-cyan-500" />
-                <button type="button" onclick="openExerciseLibrary()" class="bg-cyan-950 border border-cyan-800 text-cyan-400 px-3 py-2 rounded-lg text-xs font-bold flex items-center space-x-1">
-                  <i data-lucide="book-open" class="w-4 h-4"></i>
+                <button type="button" onclick="openExerciseLibrary()" class="bg-cyan-950 border border-cyan-800 text-cyan-400 px-3 py-2 rounded-lg text-xs font-bold flex items-center space-x-1 cursor-pointer">
+                  <i data-lucide="book-open" class="w-4 h-4 pointer-events-none"></i>
                   <span>Library</span>
                 </button>
               </div>
@@ -146,25 +151,25 @@
               </div>
 
               <div class="grid grid-cols-12 gap-2 items-center">
-                <input type="number" id="set-weight" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold" />
-                <input type="number" id="set-reps" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold" />
-                <select id="set-type" class="col-span-3 bg-slate-950 border border-slate-800 text-xs font-bold text-cyan-400 rounded-lg py-2.5 text-center">
+                <input type="number" id="set-weight" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold focus:outline-none" />
+                <input type="number" id="set-reps" placeholder="0" class="col-span-3 bg-slate-950 border border-slate-800 rounded-lg p-2 text-sm text-center font-bold focus:outline-none" />
+                <select id="set-type" class="col-span-3 bg-slate-950 border border-slate-800 text-xs font-bold text-cyan-400 rounded-lg py-2.5 text-center focus:outline-none">
                   <option value="Normal">Normal</option>
                   <option value="Warmup">Warmup</option>
                   <option value="Drop">Drop</option>
                   <option value="Failure">Failure</option>
                 </select>
-                <button type="button" onclick="logHevySet()" class="col-span-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black py-2.5 rounded-lg shadow">
+                <button type="button" onclick="logHevySet()" class="col-span-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black py-2.5 rounded-lg shadow cursor-pointer">
                   Log Set
                 </button>
               </div>
             </div>
           </div>
 
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg pb-10">
             <div class="flex justify-between items-center mb-3">
-              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Workout Sets</h4>
-              <button type="button" onclick="finishWorkoutSession()" class="bg-cyan-950 border border-cyan-700 text-cyan-300 font-bold px-3 py-1 rounded text-xs">Finish Workout</button>
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Sets</h4>
+              <button type="button" onclick="finishWorkoutSession()" class="bg-cyan-950 border border-cyan-700 text-cyan-300 font-bold px-3 py-1 rounded text-xs cursor-pointer">Finish Workout</button>
             </div>
             <div id="hevy-sets-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
               <p class="text-xs text-slate-600 italic">No sets logged in current session.</p>
@@ -179,7 +184,7 @@
       </div>
 
       <!-- PAGE 3: BODY STATS & DISCIPLINE HUB -->
-      <div class="app-page p-4 space-y-4">
+      <div class="app-page space-y-4">
         <div>
           <h2 class="text-2xl font-black text-amber-400 uppercase tracking-wide">Stats & Discipline</h2>
           <p class="text-xs text-slate-400">Weight Loss Progress, Calorie Engine & Habits</p>
@@ -187,7 +192,7 @@
 
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
           <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Body Profile & Weight Loss</span>
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Body Profile & Weight</span>
             <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950 border border-emerald-900 px-2 py-0.5 rounded">Daily Weigh-In Due</span>
           </div>
 
@@ -223,7 +228,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Calorie Engine</span>
-            <button type="button" onclick="syncQRingHealthData()" class="bg-cyan-950 border border-cyan-800 text-cyan-400 px-2.5 py-1 rounded text-[10px] font-bold">Sync QRing</button>
+            <button type="button" onclick="syncQRingHealthData()" class="bg-cyan-950 border border-cyan-800 text-cyan-400 px-2.5 py-1 rounded text-[10px] font-bold cursor-pointer">Sync QRing</button>
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
@@ -238,13 +243,13 @@
 
           <form id="calorie-form" class="flex gap-2">
             <input type="number" id="meal-calories" placeholder="Add meal calories..." class="flex-1 bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs font-semibold focus:outline-none" />
-            <button type="submit" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-2 rounded-lg font-bold text-xs">Log Meal (+XP)</button>
+            <button type="submit" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-2 rounded-lg font-bold text-xs cursor-pointer">Log Meal (+XP)</button>
           </form>
         </div>
 
         <form id="habit-form" class="flex gap-2">
           <input type="text" id="habit-input" placeholder="Add custom habit..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500" />
-          <button type="submit" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-3 rounded-xl font-bold text-xs">Add</button>
+          <button type="submit" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-3 rounded-xl font-bold text-xs cursor-pointer">Add</button>
         </form>
 
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg pb-12">
@@ -257,47 +262,46 @@
   </div>
 
   <!-- BOTTOM NAVIGATION BAR -->
-  <div class="bg-slate-950 border-t border-slate-800 p-2 flex justify-around items-center z-50">
-    <button type="button" onclick="goToPage(0)" id="nav-btn-0" class="flex flex-col items-center text-cyan-400 font-bold text-[10px]">
-      <i data-lucide="shield" class="w-5 h-5 mb-0.5"></i>
-      <span>Avatar</span>
+  <div id="bottom-bar" class="bg-slate-950 border-t border-slate-800 flex justify-around items-center">
+    <button type="button" onclick="goToPage(0)" id="nav-btn-0" class="flex flex-col items-center justify-center w-full h-full text-cyan-400 font-bold text-[10px] cursor-pointer">
+      <i data-lucide="shield" class="w-5 h-5 mb-0.5 pointer-events-none"></i>
+      <span class="pointer-events-none">Avatar</span>
     </button>
-    <button type="button" onclick="goToPage(1)" id="nav-btn-1" class="flex flex-col items-center text-slate-500 font-bold text-[10px]">
-      <i data-lucide="dumbbell" class="w-5 h-5 mb-0.5"></i>
-      <span>Workout</span>
+    <button type="button" onclick="goToPage(1)" id="nav-btn-1" class="flex flex-col items-center justify-center w-full h-full text-slate-500 font-bold text-[10px] cursor-pointer">
+      <i data-lucide="dumbbell" class="w-5 h-5 mb-0.5 pointer-events-none"></i>
+      <span class="pointer-events-none">Workout</span>
     </button>
-    <button type="button" onclick="goToPage(2)" id="nav-btn-2" class="flex flex-col items-center text-slate-500 font-bold text-[10px]">
-      <i data-lucide="flame" class="w-5 h-5 mb-0.5"></i>
-      <span>Habits</span>
+    <button type="button" onclick="goToPage(2)" id="nav-btn-2" class="flex flex-col items-center justify-center w-full h-full text-slate-500 font-bold text-[10px] cursor-pointer">
+      <i data-lucide="flame" class="w-5 h-5 mb-0.5 pointer-events-none"></i>
+      <span class="pointer-events-none">Habits</span>
     </button>
   </div>
 
   <!-- HEVY EXERCISE LIBRARY MODAL -->
-  <div id="exercise-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+  <div id="exercise-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
       <div class="flex justify-between items-center">
         <h3 class="text-lg font-bold text-cyan-400">Hevy Exercise Database</h3>
-        <button type="button" onclick="closeExerciseLibrary()" class="text-slate-400 font-bold">✕</button>
+        <button type="button" onclick="closeExerciseLibrary()" class="text-slate-400 font-bold text-xl cursor-pointer">✕</button>
       </div>
       
       <div class="flex gap-2">
         <input type="text" id="custom-exercise-name" placeholder="Add new exercise..." class="flex-1 bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs focus:outline-none text-slate-200"/>
-        <button type="button" onclick="addCustomExercise()" class="bg-cyan-950 border border-cyan-700 text-cyan-300 font-bold px-3 py-1 rounded text-xs">Add</button>
+        <button type="button" onclick="addCustomExercise()" class="bg-cyan-950 border border-cyan-700 text-cyan-300 font-bold px-3 py-1 rounded text-xs cursor-pointer">Add</button>
       </div>
 
       <div id="library-list" class="space-y-2 max-h-72 overflow-y-auto pr-1 text-xs">
-        <p class="font-bold text-cyan-500 uppercase tracking-wider">Arms / Shoulders</p>
-        <button type="button" onclick="selectExercise('Preacher Curl (Barbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Preacher Curl (Barbell)</button>
-        <button type="button" onclick="selectExercise('Triceps Pushdown')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Triceps Pushdown</button>
-        <button type="button" onclick="selectExercise('Seated Lateral Raise (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Seated Lateral Raise (Dumbbell)</button>
+        <p class="font-bold text-cyan-500 uppercase tracking-wider pt-1">Arms / Shoulders</p>
+        <button type="button" onclick="selectExercise('Preacher Curl (Barbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800 cursor-pointer">Preacher Curl (Barbell)</button>
+        <button type="button" onclick="selectExercise('Triceps Pushdown')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800 cursor-pointer">Triceps Pushdown</button>
         
         <p class="font-bold text-cyan-500 uppercase tracking-wider pt-2">Chest / Push</p>
-        <button type="button" onclick="selectExercise('Incline Bench Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Incline Bench Press (Dumbbell)</button>
-        <button type="button" onclick="selectExercise('Shoulder Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Shoulder Press (Dumbbell)</button>
+        <button type="button" onclick="selectExercise('Incline Bench Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800 cursor-pointer">Incline Bench Press (Dumbbell)</button>
+        <button type="button" onclick="selectExercise('Shoulder Press (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800 cursor-pointer">Shoulder Press (Dumbbell)</button>
         
         <p class="font-bold text-cyan-500 uppercase tracking-wider pt-2">Legs / Core</p>
-        <button type="button" onclick="selectExercise('Bulgarian Split Squat (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Bulgarian Split Squat (Dumbbell)</button>
-        <button type="button" onclick="selectExercise('Lying Leg Curl (Machine)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800">Lying Leg Curl (Machine)</button>
+        <button type="button" onclick="selectExercise('Bulgarian Split Squat (Dumbbell)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800 cursor-pointer">Bulgarian Split Squat (Dumbbell)</button>
+        <button type="button" onclick="selectExercise('Lying Leg Curl (Machine)')" class="w-full text-left bg-slate-950 p-2.5 rounded border border-slate-800 cursor-pointer">Lying Leg Curl (Machine)</button>
       </div>
     </div>
   </div>
@@ -320,8 +324,286 @@
       { id: 2, title: "Arms Routine", timeAgo: "Yesterday", duration: "1h 1min", volume: "5,912.5 kg", exercises: ["4 sets Preacher Curl", "4 sets Triceps Pushdown"] }
     ];
 
+    // ROCK SOLID NAVIGATION ENGINE
     function goToPage(index) {
       currentPage = index;
       document.getElementById('swipe-wrapper').style.transform = `translateX(-${index * 100}vw)`;
       
-      [0, 1, 2].forEach
+      [0, 1, 2].forEach(i => {
+        document.getElementById(`dot-${i}`).className = `w-2.5 h-2.5 rounded-full transition-all ${i === index ? 'bg-cyan-400 scale-125' : 'bg-slate-700'}`;
+        const btn = document.getElementById(`nav-btn-${i}`);
+        btn.className = `flex flex-col items-center justify-center w-full h-full font-bold text-[10px] cursor-pointer ${i === index ? 'text-cyan-400' : 'text-slate-500'}`;
+      });
+    }
+
+    // NON-BLOCKING TOUCH ENGINE
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const viewport = document.getElementById('app-viewport');
+
+    viewport.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', e => {
+      let touchEndX = e.changedTouches[0].clientX;
+      let touchEndY = e.changedTouches[0].clientY;
+      
+      let diffX = touchStartX - touchEndX;
+      let diffY = touchStartY - touchEndY;
+
+      // Only trigger if horizontal swipe is prominent
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0 && currentPage < 2) goToPage(currentPage + 1);
+        if (diffX < 0 && currentPage > 0) goToPage(currentPage - 1);
+      }
+    }, { passive: true });
+
+    function switchWorkoutSubTab(tab) {
+      if (tab === 'active') {
+        document.getElementById('subtab-active').classList.remove('hidden');
+        document.getElementById('subtab-history').classList.add('hidden');
+        document.getElementById('tab-active-btn').className = 'flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition cursor-pointer';
+        document.getElementById('tab-history-btn').className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition cursor-pointer';
+      } else {
+        document.getElementById('subtab-active').classList.add('hidden');
+        document.getElementById('subtab-history').classList.remove('hidden');
+        document.getElementById('tab-history-btn').className = 'flex-1 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 transition cursor-pointer';
+        document.getElementById('tab-active-btn').className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition cursor-pointer';
+        renderWorkoutHistory();
+      }
+    }
+
+    function checkProgressiveOverload(exercise, reps, weight) {
+      const coachAlert = document.getElementById('coach-alert');
+      const coachMsg = document.getElementById('coach-alert-msg');
+      if (reps >= 15) {
+        coachAlert.classList.remove('hidden');
+        coachMsg.innerText = `⚔️ STRENGTH THRESHOLD CLEARED: You completed ${reps} reps on ${exercise}! Increase load by +2.5kg next session.`;
+      } else {
+        coachAlert.classList.add('hidden');
+      }
+    }
+
+    function openExerciseLibrary() { document.getElementById('exercise-modal').classList.remove('hidden'); }
+    function closeExerciseLibrary() { document.getElementById('exercise-modal').classList.add('hidden'); }
+    function selectExercise(name) {
+      document.getElementById('exercise-input').value = name;
+      closeExerciseLibrary();
+    }
+
+    function addCustomExercise() {
+      const name = document.getElementById('custom-exercise-name').value;
+      if (!name) return;
+      selectExercise(name);
+      document.getElementById('custom-exercise-name').value = '';
+    }
+
+    function logHevySet() {
+      const split = document.getElementById('workout-split').value;
+      const exercise = document.getElementById('exercise-input').value || 'Freestyle Exercise';
+      const weight = parseFloat(document.getElementById('set-weight').value) || 0;
+      const reps = parseInt(document.getElementById('set-reps').value) || 0;
+      const type = document.getElementById('set-type').value;
+
+      addXP(15);
+      currentSessionSets.push({ id: Date.now(), split, exercise, weight, reps, type });
+      renderCurrentSets();
+      checkProgressiveOverload(exercise, reps, weight);
+
+      document.getElementById('set-weight').value = '';
+      document.getElementById('set-reps').value = '';
+      startRestTimer(90);
+    }
+
+    function renderCurrentSets() {
+      const container = document.getElementById('hevy-sets-list');
+      container.innerHTML = '';
+      if (currentSessionSets.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-600 italic">No sets logged in current session.</p>`;
+        return;
+      }
+      currentSessionSets.forEach(w => {
+        const item = document.createElement('div');
+        item.className = 'bg-slate-950 border border-slate-800 p-2.5 rounded-xl flex justify-between items-center text-xs';
+        item.innerHTML = `
+          <div>
+            <span class="font-bold text-cyan-400">${w.exercise}</span>
+            <span class="text-[9px] uppercase bg-slate-900 px-1 py-0.5 rounded text-slate-400 border border-slate-800 ml-1">${w.type}</span>
+            <p class="text-slate-500 mt-0.5">${w.weight} kg × ${w.reps} reps</p>
+          </div>
+          <span class="text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-900">+15 XP</span>
+        `;
+        container.prepend(item);
+      });
+    }
+
+    function finishWorkoutSession() {
+      if (currentSessionSets.length === 0) return;
+      
+      let totalVol = currentSessionSets.reduce((acc, s) => acc + (s.weight * s.reps), 0);
+      let exercisesLogged = [...new Set(currentSessionSets.map(s => s.exercise))];
+
+      pastWorkouts.unshift({
+        id: Date.now(),
+        title: document.getElementById('workout-split').value + " Routine",
+        timeAgo: "Just now",
+        duration: "45min",
+        volume: `${totalVol} kg`,
+        exercises: exercisesLogged.map(e => `${currentSessionSets.filter(s => s.exercise === e).length} sets ${e}`)
+      });
+
+      currentSessionSets = [];
+      renderCurrentSets();
+      addXP(50);
+      alert("⚔️ WORKOUT FINISHED! Logged to History (+50 XP)");
+      switchWorkoutSubTab('history');
+    }
+
+    function renderWorkoutHistory() {
+      const container = document.getElementById('workout-history-container');
+      container.innerHTML = '';
+      pastWorkouts.forEach(w => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2 shadow-lg';
+        card.innerHTML = `
+          <div class="flex justify-between items-start border-b border-slate-800/80 pb-2">
+            <div>
+              <p class="text-xs text-slate-500 font-semibold">${w.timeAgo}</p>
+              <h4 class="font-black text-sm text-cyan-300 mt-0.5">${w.title}</h4>
+            </div>
+            <div class="text-right text-[10px] text-slate-400">
+              <p>Time: <strong class="text-white">${w.duration}</strong></p>
+              <p>Volume: <strong class="text-emerald-400">${w.volume}</strong></p>
+            </div>
+          </div>
+          <div class="space-y-1 text-xs text-slate-400 pt-1">
+            ${w.exercises.map(e => `<p class="flex items-center space-x-1"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full inline-block"></span><span>${e}</span></p>`).join('')}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updateBodyStats() {
+      const current = parseFloat(document.getElementById('user-weight').value) || 85;
+      const target = parseFloat(document.getElementById('target-weight').value) || 78;
+      const startWeight = 90.0;
+
+      const lost = (startWeight - current).toFixed(1);
+      document.getElementById('weight-loss-text').innerText = `${lost} kg lost total`;
+      
+      const percent = Math.min(100, Math.max(10, ((startWeight - current) / (startWeight - target)) * 100));
+      document.getElementById('weight-bar').style.width = `${percent}%`;
+    }
+
+    function startRestTimer(seconds) {
+      clearInterval(timerInterval);
+      let remaining = seconds;
+      const display = document.getElementById('timer-display');
+      timerInterval = setInterval(() => {
+        let mins = Math.floor(remaining / 60);
+        let secs = remaining % 60;
+        display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          display.innerText = "REST DONE!";
+        }
+        remaining--;
+      }, 1000);
+    }
+
+    function syncQRingHealthData() {
+      caloriesBurned = Math.floor(Math.random() * (680 - 450 + 1)) + 450;
+      addXP(20);
+      document.getElementById('calories-burned').innerText = `${caloriesBurned} / 600 kcal`;
+      alert(`🔥 Synced with QRing! Active burn updated to ${caloriesBurned} kcal (+20 XP).`);
+    }
+
+    document.getElementById('calorie-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('meal-calories');
+      const val = parseInt(input.value);
+      if (!val) return;
+      caloriesConsumed += val;
+      addXP(10);
+      document.getElementById('calories-consumed').innerText = `${caloriesConsumed} / 2400 kcal`;
+      input.value = '';
+    });
+
+    function addXP(amount) {
+      xp += amount;
+      teethCoins += Math.floor(amount / 2);
+      if (xp >= xpNeeded) {
+        level++;
+        xp -= xpNeeded;
+        xpNeeded = level * 100;
+        alert(`🎉 LEVEL UP! You reached Level ${level}!`);
+      }
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('avatar-level').innerText = `Lvl ${level}`;
+      document.getElementById('xp-text').innerText = `${xp} / ${xpNeeded} XP`;
+      document.getElementById('xp-bar').style.width = `${(xp / xpNeeded) * 100}%`;
+      document.getElementById('teeth-coins').innerText = `${teethCoins} Bio-Teeth`;
+      renderHabits();
+    }
+
+    document.getElementById('habit-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('habit-input');
+      habits.push({ id: Date.now(), name: input.value, streak: 0, done: false });
+      input.value = '';
+      renderHabits();
+    });
+
+    function toggleHabit(id) {
+      habits = habits.map(h => {
+        if (h.id === id && !h.done) {
+          addXP(15);
+          return { ...h, done: true, streak: h.streak + 1 };
+        }
+        return h;
+      });
+      renderHabits();
+    }
+
+    function renderHabits() {
+      const container = document.getElementById('habit-list');
+      container.innerHTML = '';
+      if (habits.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-600 italic">No habits added yet.</p>`;
+        return;
+      }
+      habits.forEach(h => {
+        const item = document.createElement('div');
+        item.className = `p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
+          h.done ? 'bg-slate-950/50 border-slate-800 opacity-60' : 'bg-slate-950 border-slate-800 hover:border-slate-700'
+        }`;
+        item.onclick = () => toggleHabit(h.id);
+        item.innerHTML = `
+          <div class="flex items-center space-x-3 pointer-events-none">
+            <i data-lucide="${h.done ? 'check-circle' : 'circle'}" class="${h.done ? 'text-amber-400' : 'text-slate-700'}"></i>
+            <div>
+              <p class="text-sm font-semibold ${h.done ? 'line-through text-slate-500' : 'text-slate-200'}">${h.name}</p>
+              <p class="text-[10px] text-amber-500 font-bold">🔥 ${h.streak} Day Streak</p>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-amber-400 bg-amber-950/60 border border-amber-900 px-2 py-1 rounded pointer-events-none">+15 XP</span>
+        `;
+        container.appendChild(item);
+      });
+      lucide.createIcons();
+    }
+
+    window.onload = () => {
+      lucide.createIcons();
+      updateUI();
+      updateBodyStats();
+    };
+  </script>
+</body>
+</html>
